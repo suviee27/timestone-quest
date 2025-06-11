@@ -79,14 +79,14 @@
   </style>
 </head>
 <body>
-  <!-- 프롤로그 -->
+<!-- 프롤로그 -->
   <div class="container visible" id="prologue">
     <h1>타임스톤 퀘스트</h1>
     <p>✨ 무슨 일이 일어난 걸까요? 🌟</p>
     <p>국립중앙박물관 '역사의 길'에서 놀라운 일이 벌어졌습니다.</p>
     <p>‘타임스톤’에 균열이 생겼고, 여러분은 이를 복원해야 합니다!</p>
     <div class="footer-buttons">
-      <button onclick="startGame()">게임 시작</button>
+      <button onclick="startGame()">다음</button>
     </div>
   </div>
 
@@ -98,21 +98,20 @@
     <p>💡 힌트는 총 5번만 사용할 수 있습니다.</p>
     <p>⌛️ 제한시간: 1시간 30분</p>
     <div class="footer-buttons">
-      <button onclick="nextStep('zone1-intro')">게임 시작</button>
+      <button onclick="nextStep('zone1-intro')">게임시작</button>
     </div>
   </div>
 
-<!-- 구역 1: 중근세관 -->
+  <!-- 구역 1: 중근세관 -->
   <div class="container" id="zone1-intro">
     <!-- 홈 버튼 -->
     <button class="nav-button home-btn" onclick="goHome()">홈</button>
-    <!-- ? 버튼 -->
-    <button class="nav-button hint-btn" onclick="toggleMap()">?</button>
     <h2>구역 1: 중근세관</h2>
     <p>중근세관으로 이동하세요.</p>
-    <!-- 약도 이미지 (초기에 숨김 상태) -->
-    <div id="map-container" style="display: none; margin-top: 20px;">
-      <img src="map-image.jpg" alt="중근세관 약도" style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px;">
+    <!-- 약도 이미지 (항상 표시) -->
+    <div class="map-container">
+      <img src="https://raahs.notion.site/image/attachment%3A0db5d43c-3771-44da-b75a-97977d93898a%3A1st.png?table=block&id=20f56bfd-6710-8066-a2e7-fc1fe3c195eb&spaceId=c488ba5d-a974-47f4-a87f-1e0c20d81c61&width=930&userId=&cache=v2ㄴ" 
+           alt="중근세관 약도">
     </div>
     <div class="footer-buttons">
       <button onclick="previousStep('mission')">이전</button>
@@ -121,14 +120,18 @@
   </div>
 
   <script>
-    // 약도 이미지 표시/숨김 전환 함수
-    function toggleMap() {
-      const mapContainer = document.getElementById('map-container');
-      if (mapContainer.style.display === 'none') {
-        mapContainer.style.display = 'block'; // 약도 표시
-      } else {
-        mapContainer.style.display = 'none'; // 약도 숨김
-      }
+    // 화면 전환 함수
+    function nextStep(stepId) {
+      document.querySelectorAll('.container').forEach(div => div.classList.remove('visible'));
+      document.getElementById(stepId).classList.add('visible');
+    }
+
+    function previousStep(stepId) {
+      nextStep(stepId);
+    }
+
+    function goHome() {
+      nextStep('prologue'); // 홈 화면으로 이동
     }
   </script>
 
@@ -179,13 +182,13 @@
 <div class="container" id="zone2-intro">
   <!-- 홈 버튼 -->
   <button class="nav-button home-btn" onclick="goHome()">홈</button>
-  <!-- ? 버튼 -->
-  <button class="nav-button hint-btn" onclick="toggleMap()">?</button>
   <h2>구역 2: 선사고대관</h2>
   <p>선사고대관으로 이동하세요.</p>
-  <!-- 약도 이미지 (초기에 숨김 상태) -->
-  <div id="map-container-zone2" style="display: none; margin-top: 20px;">
-    <img src="map-image-zone2.jpg" alt="선사고대관 약도" style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px;">
+  <!-- 약도 이미지 (항상 표시) -->
+  <div class="map-container">
+    <img src="https://raahs.notion.site/image/attachment%3A0db5d43c-3771-44da-b75a-97977d93898a%3A1st.png?table=block&id=20f56bfd-6710-8066-a2e7-fc1fe3c195eb&spaceId=c488ba5d-a974-47f4-a87f-1e0c20d81c61&width=930&userId=&cache=v2" 
+         alt="선사고대관 약도" 
+         style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px;">
   </div>
   <div class="footer-buttons">
     <button onclick="previousStep('zone1-correct')">이전</button>
@@ -194,14 +197,18 @@
 </div>
 
 <script>
-  // 약도 이미지 표시/숨김 전환 함수
-  function toggleMap() {
-    const mapContainer = document.getElementById('map-container-zone2');
-    if (mapContainer.style.display === 'none') {
-      mapContainer.style.display = 'block'; // 약도 표시
-    } else {
-      mapContainer.style.display = 'none'; // 약도 숨김
-    }
+  // 화면 전환 함수
+  function nextStep(stepId) {
+    document.querySelectorAll('.container').forEach(div => div.classList.remove('visible'));
+    document.getElementById(stepId).classList.add('visible');
+  }
+
+  function previousStep(stepId) {
+    nextStep(stepId);
+  }
+
+  function goHome() {
+    nextStep('prologue'); // 홈 화면으로 이동
   }
 </script>
 
@@ -242,7 +249,7 @@
   <button class="nav-button home-btn" onclick="goHome()">홈</button>
   <h2>축하합니다! 🎉</h2>
   <p>타임스톤의 노란 조각을 찾았습니다!</p>
-  <p>우리가 발견한 보물은 **황남대총 북분 금관**(국보 제191호)입니다. 이 금관은 신라 왕비의 무덤으로 추정되는 황남대총에서 출토된 것으로, 여성이 사용했던 것으로 보입니다. 특히 사슴뿔 모양 장식(녹각형 입식)은 고대 북방계 문화와 연결되며, 신라 금관의 독특한 무속적 성격을 보여줍니다. 양옆에 늘어진 수식(垂飾)은 걸을 때마다 반짝이며 왕비의 신성함과 권위를 상징했답니다.</p>
+  <p>우리가 발견한 보물은 '황남대총 북분 금관'(국보 제191호)입니다. 이 금관은 신라 왕비의 무덤으로 추정되는 황남대총에서 출토된 것으로, 여성이 사용했던 것으로 보입니다. 특히 사슴뿔 모양 장식(녹각형 입식)은 고대 북방계 문화와 연결되며, 신라 금관의 독특한 무속적 성격을 보여줍니다. 양옆에 늘어진 수식(垂飾)은 걸을 때마다 반짝이며 왕비의 신성함과 권위를 상징했답니다.</p>
   <div class="footer-buttons">
     <button onclick="nextStep('zone3-intro')">다음 구역으로 이동</button>
   </div>
@@ -252,13 +259,13 @@
 <div class="container" id="zone3-intro">
   <!-- 홈 버튼 -->
   <button class="nav-button home-btn" onclick="goHome()">홈</button>
-  <!-- ? 버튼 -->
-  <button class="nav-button hint-btn" onclick="toggleMap()">?</button>
   <h2>구역 3: 서화관</h2>
   <p>서화관으로 이동하세요.</p>
-  <!-- 약도 이미지 (초기에 숨김 상태) -->
-  <div id="map-container-zone3" style="display: none; margin-top: 20px;">
-    <img src="map-image-zone3.jpg" alt="서화관 약도" style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px;">
+  <!-- 약도 이미지 (항상 표시) -->
+  <div class="map-container">
+    <img src="https://raahs.notion.site/image/attachment%3Adcc36733-88be-49a0-9a66-c31fd5057e35%3A2nd.png?table=block&id=20f56bfd-6710-80a1-9b48-c7a3ebce9eb3&spaceId=c488ba5d-a974-47f4-a87f-1e0c20d81c61&width=900&userId=&cache=v2" 
+         alt="서화관 약도" 
+         style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px;">
   </div>
   <div class="footer-buttons">
     <button onclick="previousStep('zone2-correct')">이전</button>
@@ -267,16 +274,23 @@
 </div>
 
 <script>
-  // 약도 이미지 표시/숨김 전환 함수
-  function toggleMap() {
-    const mapContainer = document.getElementById('map-container-zone3');
-    if (mapContainer.style.display === 'none') {
-      mapContainer.style.display = 'block'; // 약도 표시
-    } else {
-      mapContainer.style.display = 'none'; // 약도 숨김
-    }
+  // 화면 전환 함수
+  function nextStep(stepId) {
+    // 모든 컨테이너 숨기기
+    document.querySelectorAll('.container').forEach(div => div.classList.remove('visible'));
+    // 선택한 컨테이너만 표시
+    document.getElementById(stepId).classList.add('visible');
+  }
+
+  function previousStep(stepId) {
+    nextStep(stepId); // 이전 화면으로 이동
+  }
+
+  function goHome() {
+    nextStep('prologue'); // 홈 화면으로 이동
   }
 </script>
+
 
 <div class="container" id="zone3-clue">
   <button class="nav-button home-btn" onclick="goHome()">홈</button>
@@ -315,7 +329,7 @@
   <button class="nav-button home-btn" onclick="goHome()">홈</button>
   <h2>축하합니다! 🎉</h2>
   <p>타임스톤의 초록 조각을 찾았습니다!</p>
-  <p>우리가 발견한 보물은 **외규장각 의궤**입니다. 조선왕실 문화의 보고인 이 의궤들은 1866년 병인양요 때 프랑스군이 강화도에서 약탈해 갔다가 145년 만인 2011년에 우리나라로 귀환했어요. 지금 보고 있는 의궤는 책의의 원형이 그대로 남아있는 11책 중 하나로, 초록 비단으로 만든 표지에 다양한 문양이 수놓아져 있어요. 이 귀중한 의궤들은 3개월마다 교체 전시되고 있답니다.</p>
+  <p>우리가 발견한 보물은 '외규장각 의궤'입니다. 조선왕실 문화의 보고인 이 의궤들은 1866년 병인양요 때 프랑스군이 강화도에서 약탈해 갔다가 145년 만인 2011년에 우리나라로 귀환했어요. 지금 보고 있는 의궤는 책의의 원형이 그대로 남아있는 11책 중 하나로, 초록 비단으로 만든 표지에 다양한 문양이 수놓아져 있어요. 이 귀중한 의궤들은 3개월마다 교체 전시되고 있답니다.</p>
   <div class="footer-buttons">
     <button onclick="nextStep('zone4-intro')">다음 구역으로 이동</button>
   </div>
@@ -325,13 +339,13 @@
 <div class="container" id="zone4-intro">
   <!-- 홈 버튼 -->
   <button class="nav-button home-btn" onclick="goHome()">홈</button>
-  <!-- ? 버튼 -->
-  <button class="nav-button hint-btn" onclick="toggleMap()">?</button>
   <h2>구역 4: 조각공예관</h2>
   <p>조각공예관으로 이동하세요.</p>
-  <!-- 약도 이미지 (초기에 숨김 상태) -->
-  <div id="map-container-zone4" style="display: none; margin-top: 20px;">
-    <img src="map-image-zone4.jpg" alt="조각공예관 약도" style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px;">
+  <!-- 약도 이미지 (항상 표시) -->
+  <div class="map-container">
+    <img src="https://raahs.notion.site/image/attachment%3Aeea8a9aa-df90-403f-ba23-320b23519976%3A3rd.png?table=block&id=20f56bfd-6710-80af-a1c8-d020812e41a0&spaceId=c488ba5d-a974-47f4-a87f-1e0c20d81c61&width=940&userId=&cache=v2" 
+         alt="조각공예관 약도" 
+         style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px;">
   </div>
   <div class="footer-buttons">
     <button onclick="previousStep('zone3-correct')">이전</button>
@@ -340,14 +354,20 @@
 </div>
 
 <script>
-  // 약도 이미지 표시/숨김 전환 함수
-  function toggleMap() {
-    const mapContainer = document.getElementById('map-container-zone4');
-    if (mapContainer.style.display === 'none') {
-      mapContainer.style.display = 'block'; // 약도 표시
-    } else {
-      mapContainer.style.display = 'none'; // 약도 숨김
-    }
+  // 화면 전환 함수
+  function nextStep(stepId) {
+    // 모든 컨테이너 숨기기
+    document.querySelectorAll('.container').forEach(div => div.classList.remove('visible'));
+    // 선택한 컨테이너만 표시
+    document.getElementById(stepId).classList.add('visible');
+  }
+
+  function previousStep(stepId) {
+    nextStep(stepId); // 이전 화면으로 이동
+  }
+
+  function goHome() {
+    nextStep('prologue'); // 홈 화면으로 이동
   }
 </script>
 
@@ -388,11 +408,88 @@
   <button class="nav-button home-btn" onclick="goHome()">홈</button>
   <h2>축하합니다! 🎉</h2>
   <p>타임스톤의 보라 조각을 찾았습니다!</p>
-  <p>우리가 발견한 보물은 **백자 달항아리**(보물 제1437호)입니다. 조선 후기를 대표하는 이 달항아리는 위아래를 따로 만들어 접합한 특별한 제작 방식으로 만들어졌어요. 완벽한 원형을 추구하지 않고 자연스러운 찌그러짐과 균열을 받아들인 것에서 조선 도공들의 여유로운 미의식을 엿볼 수 있답니다. 보름달처럼 둥근 형태는 조선 시대 사람들의 순수하고 소박한 미의식을 대표하는 걸작이에요.</p>
+  <p>우리가 발견한 보물은 '백자 달항아리'(보물 제1437호)입니다. 조선 후기를 대표하는 이 달항아리는 위아래를 따로 만들어 접합한 특별한 제작 방식으로 만들어졌어요. 완벽한 원형을 추구하지 않고 자연스러운 찌그러짐과 균열을 받아들인 것에서 조선 도공들의 여유로운 미의식을 엿볼 수 있답니다. 보름달처럼 둥근 형태는 조선 시대 사람들의 순수하고 소박한 미의식을 대표하는 걸작이에요.</p>
   <div class="footer-buttons">
     <button onclick="nextStep('end-screen')">게임 종료</button>
   </div>
 </div>
+<script>
+    // 화면 전환 함수
+    function nextStep(stepId) {
+      // 모든 컨테이너 숨기기
+      document.querySelectorAll('.container').forEach(div => div.classList.remove('visible'));
+      // 선택한 컨테이너만 표시
+      document.getElementById(stepId).classList.add('visible');
+    }
+  
+    // 이전 화면으로 돌아가기
+    function previousStep(stepId) {
+      nextStep(stepId);
+    }
+  
+    // 홈 화면으로 이동
+    function goHome() {
+      nextStep('prologue');
+    }
+  
+    // 정답 확인 함수
+    function checkAnswer(inputId, correctAnswer, successId, failureId) {
+      const userAnswer = document.getElementById(inputId).value.trim();
+      if (userAnswer === correctAnswer) {
+        nextStep(successId); // 정답일 경우 성공 화면으로 이동
+      } else {
+        document.getElementById(failureId).style.display = 'block'; // 틀렸을 경우 힌트 표시
+      }
+    }
+  
+    // 힌트 사용 함수
+    function useHint(hintId) {
+      const hintContainer = document.getElementById(hintId);
+      if (hintContainer.style.display === 'none') {
+        hintContainer.style.display = 'block'; // 힌트 표시
+      } else {
+        hintContainer.style.display = 'none'; // 힌트 숨김
+      }
+    }
+  
+    // 약도 토글 함수 (구역별로 동작하도록 수정)
+    function toggleMap(zoneId) {
+      const mapContainer = document.getElementById(`map-container-${zoneId}`);
+      if (mapContainer.style.display === 'none') {
+        mapContainer.style.display = 'block'; // 약도 표시
+      } else {
+        mapContainer.style.display = 'none'; // 약도 숨김
+      }
+    }
+  </script>
+
+<script>
+  // 화면 전환 함수
+  function nextStep(stepId) {
+    document.querySelectorAll('.container').forEach(div => div.classList.remove('visible'));
+    document.getElementById(stepId).classList.add('visible');
+  }
+
+  // 이전 화면으로 이동
+  function previousStep(stepId) {
+    nextStep(stepId);
+  }
+
+  // 게임 시작 함수
+  function startGame() {
+    nextStep('mission');
+  }
+
+  // 정답 확인 함수
+  function checkAnswer(inputId, correctAnswer, successId, failureId) {
+    const userAnswer = document.getElementById(inputId).value.trim();
+    if (userAnswer === correctAnswer) {
+      nextStep(successId); // 정답일 경우 성공 화면으로 이동
+    } else {
+      document.getElementById(failureId).style.display = 'block'; // 오답 메시지 표시
+    }
+  }
+</script>
 
 <!-- 종료 페이지 -->
 <div class="container" id="end-screen">
