@@ -5,107 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>스톤 결과</title>
   <link rel="stylesheet" href="main.css">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
-    .input-container {
-      margin-top: 20px;
+    .hidden {
+      display: none;
     }
-    .input-container input {
-      padding: 10px;
-      font-size: 16px;
-      margin-right: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+    .screenshot-target {
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      text-align: center;
+      position: relative;
     }
-    .input-container button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .input-container button:hover {
-      background-color: #0056b3;
+    .team-name-display {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
     }
   </style>
 </head>
 <body>
   <div class="container">
-
     <!-- 1A 스톤 결과 -->
-    <div id="1A-result" class="result" style="display: none;">
-      <h2>축하합니다! 🎉</h2>
-      <p>타임스톤의 <strong>노란</strong> 조각을 획득했습니다!</p>
-      <img src="yellow-stone.png" alt="노란 스톤">
+    <div id="1A-result" class="result">
+      <div class="screenshot-target">
+        <h2>축하합니다! 🎉</h2>
+        <p>타임스톤의 <strong>노란</strong> 조각을 획득했습니다!</p>
+        <img src="yellow-stone.png" alt="노란 스톤">
+        <!-- 동적으로 팀 이름을 표시할 위치 -->
+        <p id="team-name-display" class="team-name-display"></p>
+      </div>
       <div class="input-container">
         <input type="text" id="team-name" placeholder="팀 이름을 입력하세요">
-        <button onclick="submitResult('노란 스톤')">결과 제출하기</button>
+        <button id="download-btn">스크린샷 다운받기</button>
       </div>
-      <button onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
+      <button class="secondary-btn" onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
     </div>
-
-    <!-- 2B 스톤 결과 -->
-    <div id="2B-result" class="result" style="display: none;">
-      <h2>스톤이 없습니다.🥲</h2>
-      <p>다른 퀘스트를 시도해보세요.</p>
-      <button onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
-    </div>
-
-    <!-- 추가 스톤 결과를 여기에 추가 -->
-
   </div>
 
   <script>
-    // URL 파라미터에서 퀴즈 ID 가져오기
-    function getQuizResult() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('quiz'); // `quiz=1A` 형태로 전달받음
-    }
-
-    // 결과 표시
-    function showResult() {
-      const resultId = getQuizResult(); // 퀴즈 ID 가져오기
-      const resultDiv = document.getElementById(`${resultId}-result`);
-
-      if (resultDiv) {
-        resultDiv.style.display = 'block'; // 해당 결과 표시
-      } else {
-        alert('결과를 찾을 수 없습니다.'); // 잘못된 퀴즈 ID 처리
-        location.href = 'clue-list.html';
-      }
-    }
-
-    // 결과 제출하기 함수 (로컬 스토리지에 저장)
-    function submitResult(stoneName) {
-      const teamName = document.getElementById('team-name').value.trim();
+    // 스크린샷 캡처 및 다운로드 함수
+    async function downloadScreenshot() {
+      const teamNameInput = document.getElementById('team-name');
+      const teamNameDisplay = document.getElementById('team-name-display');
+      const teamName = teamNameInput.value.trim();
 
       if (!teamName) {
         alert('팀 이름을 입력해주세요.');
         return;
       }
 
+      // 팀 이름을 스크린샷 영역에 표시
+      teamNameDisplay.textContent = `팀 이름: ${teamName}`;
+
+      // 스크린샷 캡처 대상 설정
+      const target = document.querySelector('.screenshot-target');
+
+      // html2canvas로 스크린샷 생성
+      const canvas = await html2canvas(target);
+
+      // 이미지 URL 생성
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = `${teamName}-stone.png`; // 파일 이름
+      link.click(); // 다운로드 실행
+
+      // 결과 자동 제출
+      submitResult('노란 스톤', teamName);
+    }
+
+    // 결과 제출 함수 (로컬 스토리지에 저장)
+    function submitResult(stoneName, teamName) {
       // 현재 시간 가져오기
       const currentTime = new Date().toLocaleString();
 
       // 결과 객체 생성
-      const result = {
-        team: teamName,
-        stone: stoneName,
-        time: currentTime
-      };
+      const result = { team: teamName, stone: stoneName, time: currentTime };
 
-      // 로컬 스토리지에 기존 결과 가져오기
+      // 기존 결과 가져오기 및 추가
       const results = JSON.parse(localStorage.getItem('results')) || [];
-      results.push(result); // 새로운 결과 추가
+      results.push(result);
       localStorage.setItem('results', JSON.stringify(results)); // 저장
 
       alert('결과가 성공적으로 제출되었습니다!');
-      location.href = 'clue-list.html'; // 제출 후 목록으로 이동
     }
 
-    // 페이지 로드 시 결과 표시
-    document.addEventListener('DOMContentLoaded', showResult);
+    // 버튼 클릭 이벤트 연결
+    document.getElementById('download-btn').addEventListener('click', downloadScreenshot);
   </script>
 </body>
 </html>

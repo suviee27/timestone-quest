@@ -84,4 +84,4 @@ function deleteSelectedResults() {
 }
 
 // 페이지 로드 시 결과 목록 표시
-document.addEventListener('DOMContentLoaded', loadResults);
+document.addEventListener('DOMContentLoaded', loadResults);ㄴ
