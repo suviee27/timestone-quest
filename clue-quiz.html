@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>단서와 퀴즈</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- 1층 A: 신라관 -->
+  <div id="zone1" class="container">
+    <h2>1층 A: 신라관</h2>
+    <p>경비원들의 대화:</p>
+    <p>"어젯밤, 금관에서 노란빛이 새어나왔어. 양옆의 긴 장식이 흔들리며...</p>
+    <button onclick="nextStep('quiz1')">퀴즈로 이동</button>
+    <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
+  </div>
+
+  <div id="quiz1" class="container" style="display: none;">
+    <h2>퀴즈</h2>
+    <p>신라 금관의 양쪽으로 늘어진 장식은 몇 개일까요?</p>
+    <input type="text" id="answer1" placeholder="정답 입력">
+    <button onclick="previousStep('zone1')">이전</button>
+    <button onclick="checkAnswer('answer1', '6', 'correct1', 'wrong1')">제출</button>
+    <p id="wrong1" class="hint" style="display: none; color: red;">틀렸습니다! 다시 시도해 보세요.</p>
+  </div>
+
+  <div id="correct1" class="container" style="display: none;">
+    <h2>축하합니다! 🎉</h2>
+    <p>타임스톤의 노란 조각을 찾았습니다!</p>
+    <img src="images/yellow-stone.png" alt="노란 스톤">
+    <button onclick="location.href='stone-result.html'">스톤 획득</button>
+  </div>
+
+  <!-- 다른 구역들도 동일하게 추가 -->
+  <script src="script.js"></script>
+</body>
+</html>

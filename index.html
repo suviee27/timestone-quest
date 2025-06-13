@@ -1,40 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>타임스톤 퀘스트</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <div>
+  <div class="container">
     <h1>타임스톤 퀘스트</h1>
     <p>✨ 신비로운 타임스톤 조각을 찾아보세요! 🌟</p>
-    <button onclick="location.href='quest-test1.html'">입장하기</button>
+    <div class="button-container">
+      <button onclick="location.href='clue-list.html'">단서 목록</button>
+      <button onclick="location.href='results.html'">결과 보기</button>
+    </div>
   </div>
 </body>
 </html>
