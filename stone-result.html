@@ -16,52 +16,117 @@
       background-color: #f8f9fa;
       border-radius: 8px;
       text-align: center;
-      position: relative;
-    }
-    .team-name-display {
-      margin-top: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- 1A 스톤 결과 -->
-    <div id="1A-result" class="result">
+    <div id="1A-result" class="result hidden">
       <div class="screenshot-target">
         <h2>축하합니다! 🎉</h2>
         <p>타임스톤의 <strong>노란</strong> 조각을 획득했습니다!</p>
         <img src="yellow-stone.png" alt="노란 스톤">
-        <!-- 동적으로 팀 이름을 표시할 위치 -->
-        <p id="team-name-display" class="team-name-display"></p>
       </div>
       <div class="input-container">
         <input type="text" id="team-name" placeholder="팀 이름을 입력하세요">
-        <button id="download-btn">스크린샷 다운받기</button>
+        <button class="download-btn">스크린샷 다운받기</button>
+      </div>
+      <button class="secondary-btn" onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
+    </div>
+
+    <!-- 2A 스톤 결과 -->
+    <div id="2A-result" class="result hidden">
+      <div class="screenshot-target">
+        <h2>축하합니다! 🎉</h2>
+        <p>타임스톤의 <strong>초록</strong> 조각을 획득했습니다!</p>
+        <img src="green-stone.png" alt="초록 스톤">
+      </div>
+      <div class="input-container">
+        <input type="text" id="team-name" placeholder="팀 이름을 입력하세요">
+        <button class="download-btn">스크린샷 다운받기</button>
+      </div>
+      <button class="secondary-btn" onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
+    </div>
+
+    <!-- 2B 스톤 결과 -->
+    <div id="2B-result" class="result hidden">
+      <div class="screenshot-target">
+        <h2>축하합니다! 🎉</h2>
+        <p>타임스톤의 <strong>빨강</strong> 조각을 획득했습니다!</p>
+        <img src="red-stone.png" alt="빨강 스톤">
+      </div>
+      <div class="input-container">
+        <input type="text" id="team-name" placeholder="팀 이름을 입력하세요">
+        <button class="download-btn">스크린샷 다운받기</button>
+      </div>
+      <button class="secondary-btn" onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
+    </div>
+
+    <!-- 2C 스톤 결과 -->
+    <div id="2C-result" class="result hidden">
+      <div class="screenshot-target">
+        <h2>축하합니다! 🎉</h2>
+        <p>타임스톤의 <strong>보라</strong> 조각을 획득했습니다!</p>
+        <img src="purple-stone.png" alt="보라 스톤">
+      </div>
+      <div class="input-container">
+        <input type="text" id="team-name" placeholder="팀 이름을 입력하세요">
+        <button class="download-btn">스크린샷 다운받기</button>
+      </div>
+      <button class="secondary-btn" onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
+    </div>
+
+    <!-- 3A 스톤 결과 -->
+    <div id="3A-result" class="result hidden">
+      <div class="screenshot-target">
+        <h2>축하합니다! 🎉</h2>
+        <p>타임스톤의 <strong>파랑</strong> 조각을 획득했습니다!</p>
+        <img src="blue-stone.png" alt="파랑 스톤">
+      </div>
+      <div class="input-container">
+        <input type="text" id="team-name" placeholder="팀 이름을 입력하세요">
+        <button class="download-btn">스크린샷 다운받기</button>
       </div>
       <button class="secondary-btn" onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
     </div>
   </div>
 
   <script>
+    // URL 파라미터에서 특정 스톤 결과 표시
+    function initializePage() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const stoneId = urlParams.get('stone'); // URL 파라미터에서 'stone' 값 가져오기
+
+      if (stoneId) {
+        // 모든 결과 숨기기
+        document.querySelectorAll('.result').forEach(div => div.classList.add('hidden'));
+
+        // 해당 스톤 결과만 표시
+        const targetResult = document.getElementById(`${stoneId}-result`);
+        if (targetResult) {
+          targetResult.classList.remove('hidden');
+        } else {
+          alert('올바르지 않은 스톤 ID입니다!');
+          location.href = 'clue-list.html';
+        }
+      } else {
+        alert('스톤 ID가 누락되었습니다!');
+        location.href = 'clue-list.html';
+      }
+    }
+
     // 스크린샷 캡처 및 다운로드 함수
-    async function downloadScreenshot() {
-      const teamNameInput = document.getElementById('team-name');
-      const teamNameDisplay = document.getElementById('team-name-display');
-      const teamName = teamNameInput.value.trim();
+    async function downloadScreenshot(stoneId) {
+      const teamName = document.querySelector(`#${stoneId}-result #team-name`).value.trim();
 
       if (!teamName) {
         alert('팀 이름을 입력해주세요.');
         return;
       }
 
-      // 팀 이름을 스크린샷 영역에 표시
-      teamNameDisplay.textContent = `팀 이름: ${teamName}`;
-
       // 스크린샷 캡처 대상 설정
-      const target = document.querySelector('.screenshot-target');
+      const target = document.querySelector(`#${stoneId}-result .screenshot-target`);
 
       // html2canvas로 스크린샷 생성
       const canvas = await html2canvas(target);
@@ -72,29 +137,18 @@
       link.href = image;
       link.download = `${teamName}-stone.png`; // 파일 이름
       link.click(); // 다운로드 실행
-
-      // 결과 자동 제출
-      submitResult('노란 스톤', teamName);
     }
 
-    // 결과 제출 함수 (로컬 스토리지에 저장)
-    function submitResult(stoneName, teamName) {
-      // 현재 시간 가져오기
-      const currentTime = new Date().toLocaleString();
+    // 페이지 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', initializePage);
 
-      // 결과 객체 생성
-      const result = { team: teamName, stone: stoneName, time: currentTime };
-
-      // 기존 결과 가져오기 및 추가
-      const results = JSON.parse(localStorage.getItem('results')) || [];
-      results.push(result);
-      localStorage.setItem('results', JSON.stringify(results)); // 저장
-
-      alert('결과가 성공적으로 제출되었습니다!');
-    }
-
-    // 버튼 클릭 이벤트 연결
-    document.getElementById('download-btn').addEventListener('click', downloadScreenshot);
+    // 다운로드 버튼 이벤트 연결
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.classList.contains('download-btn')) {
+        const stoneId = new URLSearchParams(window.location.search).get('stone'); // 현재 표시된 스톤 ID 가져오기
+        downloadScreenshot(stoneId);
+      }
+    });
   </script>
 </body>
 </html>

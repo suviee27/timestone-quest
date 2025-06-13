@@ -50,39 +50,159 @@
     .secondary-btn:hover {
       background-color: #5a6268;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    .correct-text {
+      font-size: 18px;
+      color: green;
+    }
   </style>
 </head>
 <body>
   <!-- 1층 A: 신라관 -->
   <div id="1A-clue" class="container">
-    <h2>1층 A: 신라관 (경비원들의 대화)</h2>
+    <h2>1층 A: 신라관</h2>
+    <img src="1A.png" alt="신라관 이미지">
     <p>경비원들의 대화:</p>
-    <p>"밤 순찰 경비원들의 대화 녹음: '어젯밤, 전시실 안쪽에서 이상한 걸 봤어...'"</p>
+    <p>"어젯밤, 전시실 안쪽에서 이상한 걸 봤어. 그 높게 세워진 금관에서 노란빛이 새어나왔어. 양옆에 늘어진 장식이 흔들리는데...그러다 왕관 안의 빛이 새어나와 허리띠까지..."</p>
     <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
     <button onclick="nextStep('1A-quiz')">퀴즈로 이동</button>
   </div>
 
-  <!-- 퀴즈 -->
+  <!-- 1A 퀴즈 -->
   <div id="1A-quiz" class="container">
     <h2>퀴즈</h2>
-    <p>신라 금관의 양쪽으로 늘어진 장식은 몇 개일까요?</p>
-    <input type="text" id="answer1" placeholder="정답 입력">
+    <p>금관의 양쪽으로 늘어진 수식의 개수는 몇 개일까요?</p>
+    <input type="text" id="answer1A" placeholder="정답 입력">
     <button class="secondary-btn" onclick="previousStep('1A-clue')">뒤로</button>
-    <button onclick="checkAnswer('answer1', '6', 'correct1', 'wrong1')">제출</button>
-    <p id="wrong1" class="hint hidden" style="color: red;">틀렸습니다! 다시 시도해 보세요.</p>
-    <div id="correct1" class="hidden">
-      <p class="correct-text">정답입니다 🎉</p>
-      <button class="btn" onclick="location.href='stone-result.html'">스톤 확인하기</button>
+    <button onclick="checkAnswer('answer1A', '6', 'correct1A', 'wrong1A')">제출</button>
+    <p id="wrong1A" class="hint hidden" style="color: red;">틀렸습니다! 다시 시도해 보세요.</p>
+    <div id="correct1A" class="hidden">
+      <p class="correct-text">정답입니다🎉</p>
+      <p class="correct-text">우리가 발견한 보물은 황남대총 북분 금관(국보 제191호)입니다. 이 금관은 신라 왕비의 무덤으로 추정되는 황남대총에서 출토된 것으로, 여성이 사용했던 것으로 보입니다. 특히 사슴뿔 모양 장식(녹각형 입식)은 고대 북방계 문화와 연결되며, 신라 금관의 독특한 무속적 성격을 보여줍니다. 양옆에 늘어진 수식(垂飾)은 걸을 때마다 반짝이며 왕비의 신성함과 권위를 상징했답니다.</p>
+      <button class="btn" onclick="location.href='stone-result.html?stone=1A'">스톤 확인하기</button>
     </div>
   </div>
 
   <!-- 1층 B: 특별미션 -->
   <div id="1B-clue" class="container">
     <h2>1층 B: 특별미션</h2>
+    <img src="1B.png" alt="특별미션 이미지">
     <p>단체사진 미션</p>
+    <p>파노라마 영상 상영관을 찾아 영상을 관람하고 팀 단체사진을 찍으세요.</p>
     <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
-    <button onclick="nextStep('1B-quiz')">퀴즈로 이동</button>
   </div>
+
+  <!-- 2층 A: 서화관 -->
+  <div id="2A-clue" class="container">
+    <h2>2층 A: 서화관</h2>
+    <img src="2A.png" alt="서화관 이미지">
+    <p>학예사의 기록:</p>
+    <p>"왕의서고에서 이상한 일이 발생했다. 의궤들이 보관된 서가에서 초록빛이 새어나왔는데, 그 빛이 비추는 곳마다 과거의 장면이 살아났다. 프랑스 군인들이 의궤를 약탈하는 모습, 긴 항해... 그리고 마지막으로 최근 본국으로 돌아오는 순간까지…"</p>
+    <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
+    <button onclick="nextStep('2A-quiz')">퀴즈로 이동</button>
+  </div>
+
+  <!-- 2A 퀴즈 -->
+  <div id="2A-quiz" class="container">
+    <h2>퀴즈</h2>
+    <p>왕의서고에 전시된 의궤들 중 닫혀있는 의궤의 표지의 재료는 무엇인가요?</p>
+    <input type="text" id="answer2A" placeholder="정답 입력">
+    <button class="secondary-btn" onclick="previousStep('2A-clue')">뒤로</button>
+    <button onclick="checkAnswer('answer2A', '비단', 'correct2A', 'wrong2A')">제출</button>
+    <p id="wrong2A" class="hint hidden" style="color: red;">틀렸습니다! 다시 시도해 보세요.</p>
+    <div id="correct2A" class="hidden">
+      <p class="correct-text">정답입니다🎉</p>
+      <p class="correct-text">우리가 발견한 보물은 외규장각 의궤입니다. 조선왕실 문화의 보고인 이 의궤들은 1866년 병인양요 때 프랑스군이 강화도에서 약탈해 갔다가 145년 만에 우리나라로 귀환했어요.</p>
+      <button class="btn" onclick="location.href='stone-result.html?stone=2A'">스톤 확인하기</button>
+    </div>
+  </div>
+
+  <!-- 추가된 섹션들 (삭제 없이 유지) -->
+  <div id="2B-clue" class="container">
+    <h2>2층 B: 사유의방</h2>
+    <img src="2B.png" alt="사유의방">
+    <p>안내원의 일지:</p>
+    <p>"화려한 관을 쓰고... 오른쪽 다리를 걸치고 깊은 생각에 잠긴... 그때 부드러운 미소를 띤 얼굴에서 붉은 노을빛이 퍼져 온 방을 감싸는 듯했다."</p>
+    <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
+    <button onclick="nextStep('2B-quiz')">퀴즈로 이동</button>
+  </div>
+
+  <!-- 퀴즈 -->
+  <div id="2B-quiz" class="container">
+    <h2>퀴즈</h2>
+    <p>이 보살상이 취하고 있는 자세를 무엇이라 부를까요?</p>
+    <input type="text" id="answer2B" placeholder="정답 입력">
+    <button class="secondary-btn" onclick="previousStep('2B-clue')">뒤로</button>
+    <button onclick="checkAnswer('answer2B', '반가', 'correct2B', 'wrong2B')">제출</button>
+    <p id="wrong2B" class="hint hidden" style="color: red;">틀렸습니다! 다시 시도해 보세요.</p>
+    <div id="correct2B" class="hidden">
+      <p class="correct-text">정답입니다🎉</p>
+      <p class="correct-text">우리가 발견한 보물은 금동미륵보살반가사유상(국보 제78호)입니다. 삼국시대 불교조각의 걸작으로, 부드러운 미소와 자연스러운 신체의 표현이 특징이에요. '반가(半跏)'는 한쪽 다리를 올리고 깊은 생각에 잠겨있는 자세를 의미해요.</p>
+      <button class="btn" onclick="location.href='stone-result.html?stone=2B'">스톤 확인하기</button>
+    </div>
+  </div>
+
+  <!-- 2층 C: 기증관 -->
+  <div id="2C-clue" class="container">
+    <h2>2층 B: 기증관</h2>
+    <img src="2C.png" alt="사유의방">
+    <p>기증실 담당자의 메모:</p>
+    <p>"어제 저녁, 마지막으로 전시물을 확인하던 중.. 청동투구에서 보랏빛이 새어나오면서... 1936년 베를린 올림픽의 모습이 투영되었다..."</p>
+    <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
+    <button onclick="nextStep('2C-quiz')">퀴즈로 이동</button>
+  </div>
+
+    <!-- 퀴즈 -->
+    <div id="2C-quiz" class="container">
+      <h2>퀴즈</h2>
+      <p>이 청동투구를 받게 된 올림픽 경기 종목은 무엇일까요?</p>
+      <input type="text" id="answer2C" placeholder="정답 입력">
+      <button class="secondary-btn" onclick="previousStep('2C-clue')">뒤로</button>
+      <button onclick="checkAnswer('answer2C', '마라톤', 'correct2C', 'wrong2C')">제출</button>
+      <p id="wrong2C" class="hint hidden" style="color: red;">틀렸습니다! 다시 시도해 보세요.</p>
+      <div id="correct2C" class="hidden">
+        <p class="correct-text">정답입니다🎉</p><p class="correct-text">이 투구는 1936년 베를린 올림픽 마라톤 우승 기념으로 받은 것으로, 당시 그리스 정부가 특별히 제작해 수여한 것이에요. 손기정 선수는 일제 강점기에 42.195km의 마라톤을 완주하여 우리나라 최초의 올림픽 금메달을 획득했으나, 일장기를 달고 참가해야 했던 아픈 역사를 간직한 의미 깊은 유물입니다.</p>
+        <button class="btn" onclick="location.href='stone-result.html?stone=2C'">스톤 확인하기</button>
+      </div>
+    </div> 
+
+      <!-- 3층 A: 백자관 -->
+    <div id="3A-clue" class="container">
+      <h2>3층 A: 분청사기·백자관</h2>
+      <img src="3A.png" alt="백자관">
+      <p>조선후기에 발견된 어느 기록:</p>
+      <p>"... 오늘 밤, 휘영청 밝은 달빛 아래 가마 앞에서... 하얀 보름달 같은 항아리에서 신비한 기운이 피어올랐다... 보라빛이 은은하게 퍼져나가더니... 마치 하늘의 달처럼 고요히 빛나는구나..."</p>
+      <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
+      <button onclick="nextStep('3A-quiz')">퀴즈로 이동</button>
+    </div>
+
+    <!-- 퀴즈 -->
+    <div id="3A-quiz" class="container">
+      <h2>퀴즈</h2>
+      <p>이 둥근 항아리가 닮은 달의 모양을 한글로 쓰면 조각이 나타날 거예요!</p>
+      <input type="text" id="answer3A" placeholder="정답 입력">
+      <button class="secondary-btn" onclick="previousStep('3A-clue')">뒤로</button>
+      <button onclick="checkAnswer('answer3A', '보름', 'correct3A', 'wrong3A')">제출</button>
+      <p id="wrong3A" class="hint hidden" style="color: red;">틀렸습니다! 다시 시도해 보세요.</p>
+      <div id="correct3A" class="hidden">
+        <p class="correct-text">정답입니다🎉</p><p class="correct-text">우리가 발견한 보물은 백자 달항아리(보물 제1437호)입니다. 조선 후기를 대표하는 이 달항아리는 위아래를 따로 만들어 접합한 특별한 제작 방식으로 만들어졌어요. 완벽한 원형을 추구하지 않고 자연스러운 찌그러짐과 균열을 받아들인 것에서 조선 도공들의 여유로운 미의식을 엿볼 수 있답니다. 보름달처럼 둥근 형태는 조선 시대 사람들의 순수하고 소박한 미의식을 대표하는 걸작이에요.</p>
+        <button class="btn" onclick="location.href='stone-result.html?stone=3A'">스톤 확인하기</button>
+      </div>
+    </div> 
+
+    <!-- 3층 B: 특별미션 -->
+    <div id="3B-clue" class="container">
+      <h2>3층 B: 특별미션</h2>
+      <img src="3B.png" alt="특별미션 이미지">
+      <p>단체사진 미션</p>
+      <p>중국관의 반송재 서재 안의 독화루를 찾아 단체사진을 찍으세요.</p>
+      <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
+    </div>
+  
 
   <script>
     // URL 파라미터 가져오기
@@ -93,9 +213,9 @@
 
     // 초기화: URL의 clue 파라미터를 읽어 해당 섹션 표시
     function initializePage() {
-      const clueId = getQueryParam('clue'); // URL 파라미터 가져오기
+      const clueId = getQueryParam('clue');
       if (clueId && document.getElementById(clueId)) {
-        document.getElementById(clueId).style.display = 'block'; // 해당 섹션 표시
+        document.getElementById(clueId).style.display = 'block';
       } else {
         alert('올바른 단서 ID가 아닙니다.');
         location.href = 'clue-list.html'; // 잘못된 경우 목록으로 돌아가기
