@@ -8,15 +8,15 @@
 </head>
 <body>
   <!-- 1층 A: 신라관 -->
-  <div id="zone1" class="container">
+  <div id="1A-clue" class="container">
     <h2>1층 A: 신라관</h2>
     <p>경비원들의 대화:</p>
     <p>"어젯밤, 금관에서 노란빛이 새어나왔어. 양옆의 긴 장식이 흔들리며...</p>
-    <button onclick="nextStep('quiz1')">퀴즈로 이동</button>
     <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
+    <button onclick="nextStep('quiz1')">퀴즈로 이동</button>
   </div>
 
-  <div id="quiz1" class="container" style="display: none;">
+  <div id="1A-quiz" class="container" style="display: none;">
     <h2>퀴즈</h2>
     <p>신라 금관의 양쪽으로 늘어진 장식은 몇 개일까요?</p>
     <input type="text" id="answer1" placeholder="정답 입력">
@@ -26,10 +26,10 @@
   </div>
 
   <div id="correct1" class="container" style="display: none;">
-    <h2>축하합니다! 🎉</h2>
-    <p>타임스톤의 노란 조각을 찾았습니다!</p>
+    <h2>정답입니다</h2>
+    <p>해설내용</p>
     <img src="images/yellow-stone.png" alt="노란 스톤">
-    <button onclick="location.href='stone-result.html'">스톤 획득</button>
+    <button onclick="location.href='stone-result.html#1A-result'">스톤 확인하기</button>
   </div>
 
   <!-- 다른 구역들도 동일하게 추가 -->
