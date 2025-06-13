@@ -5,6 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>스톤 결과</title>
   <link rel="stylesheet" href="main.css">
+  <style>
+    .input-container {
+      margin-top: 20px;
+    }
+    .input-container input {
+      padding: 10px;
+      font-size: 16px;
+      margin-right: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .input-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .input-container button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -13,8 +37,11 @@
     <div id="1A-result" class="result" style="display: none;">
       <h2>축하합니다! 🎉</h2>
       <p>타임스톤의 <strong>노란</strong> 조각을 획득했습니다!</p>
-      <img src="images/yellow-stone.png" alt="노란 스톤">
-      <button onclick="downloadImage('images/yellow-stone.png')">이미지 저장하기</button>
+      <img src="yellow-stone.png" alt="노란 스톤">
+      <div class="input-container">
+        <input type="text" id="team-name" placeholder="팀 이름을 입력하세요">
+        <button onclick="submitResult('노란 스톤')">결과 제출하기</button>
+      </div>
       <button onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
     </div>
 
@@ -26,14 +53,6 @@
     </div>
 
     <!-- 추가 스톤 결과를 여기에 추가 -->
-    <!-- 예: 3A 스톤 결과 -->
-    <div id="3A-result" class="result" style="display: none;">
-      <h2>축하합니다! 🎉</h2>
-      <p>타임스톤의 <strong>파란</strong> 조각을 획득했습니다!</p>
-      <img src="images/blue-stone.png" alt="파란 스톤">
-      <button onclick="downloadImage('images/blue-stone.png')">이미지 저장하기</button>
-      <button onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
-    </div>
 
   </div>
 
@@ -57,12 +76,32 @@
       }
     }
 
-    // 이미지 다운로드 함수
-    function downloadImage(imagePath) {
-      const link = document.createElement('a');
-      link.href = imagePath;
-      link.download = 'stone-image.png';
-      link.click();
+    // 결과 제출하기 함수 (로컬 스토리지에 저장)
+    function submitResult(stoneName) {
+      const teamName = document.getElementById('team-name').value.trim();
+
+      if (!teamName) {
+        alert('팀 이름을 입력해주세요.');
+        return;
+      }
+
+      // 현재 시간 가져오기
+      const currentTime = new Date().toLocaleString();
+
+      // 결과 객체 생성
+      const result = {
+        team: teamName,
+        stone: stoneName,
+        time: currentTime
+      };
+
+      // 로컬 스토리지에 기존 결과 가져오기
+      const results = JSON.parse(localStorage.getItem('results')) || [];
+      results.push(result); // 새로운 결과 추가
+      localStorage.setItem('results', JSON.stringify(results)); // 저장
+
+      alert('결과가 성공적으로 제출되었습니다!');
+      location.href = 'clue-list.html'; // 제출 후 목록으로 이동
     }
 
     // 페이지 로드 시 결과 표시

@@ -5,34 +5,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>단서와 퀴즈</title>
   <link rel="stylesheet" href="main.css">
+  <style>
+    /* 추가된 스타일 */
+    .correct-text {
+      font-size: 24px;
+      font-weight: bold;
+      color: green;
+      margin-bottom: 10px;
+    }
+    .hint {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .hidden {
+      display: none; /* 기본적으로 숨김 처리 */
+    }
+    .visible {
+      display: block; /* 정답 시 노출 */
+    }
+    .btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
   <!-- 1층 A: 신라관 -->
   <div id="1A-clue" class="container">
-    <h2>1층 A: 신라관</h2>
+    <h2>1층 A: 신라관 (경비원들의 대화)</h2>
     <p>경비원들의 대화:</p>
-    <p>"어젯밤, 금관에서 노란빛이 새어나왔어. 양옆의 긴 장식이 흔들리며...</p>
+    <p>"밤 순찰 경비원들의 대화 녹음: '어젯밤, 전시실 안쪽에서 이상한 걸 봤어. 그 높게 세워진 금관에서 노란빛이 새어나왔어. 양옆에 늘어진 장식이 흔들리는데, 마치 별빛 아래 사슴이 숲을 다니는 것 같았어. 그러다 왕관 안의 초록빛이 새어나와 금빛 허리띠에까지 퍼지다 사라졌어.. 뭔가 숨겨진 것 같아."</p>
     <button class="secondary-btn" onclick="location.href='clue-list.html'">뒤로</button>
     <button onclick="nextStep('1A-quiz')">퀴즈로 이동</button>
   </div>
 
+  <!-- 퀴즈 -->
   <div id="1A-quiz" class="container" style="display: none;">
     <h2>퀴즈</h2>
     <p>신라 금관의 양쪽으로 늘어진 장식은 몇 개일까요?</p>
     <input type="text" id="answer1" placeholder="정답 입력">
-    <button onclick="previousStep('zone1')">이전</button>
+    <button onclick="previousStep('1A-clue')">이전</button>
     <button onclick="checkAnswer('answer1', '6', 'correct1', 'wrong1')">제출</button>
-    <p id="wrong1" class="hint" style="display: none; color: red;">틀렸습니다! 다시 시도해 보세요.</p>
+
+    <!-- 오답 메시지 -->
+    <p id="wrong1" class="hint hidden" style="color: red;">틀렸습니다! 다시 시도해 보세요.</p>
+
+    <!-- 정답 메시지 -->
+    <div id="correct1" class="hidden">
+      <p class="correct-text">정답입니다 🎉</p>
+      <p class="hint">
+        황남대총 북분 금관(국보 제191호)입니다. 이 금관은 신라 왕비의 무덤으로 추정되는 황남대총에서 출토된 것으로, 여성이 사용했던 것으로 보입니다. 
+        특히 사슴뿔 모양 장식(녹각형 입식)은 고대 북방계 문화와 연결되며, 신라 금관의 독특한 무속적 성격을 보여줍니다. 양옆에 늘어진 수식(垂飾)은 걸을 때마다 반짝이며 왕비의 신성함과 권위를 상징했답니다.
+      </p>
+      <!-- 스톤 확인하기 버튼 -->
+      <button class="btn" onclick="location.href='stone-result.html#1A-result'">스톤 확인하기</button>
+    </div>
   </div>
 
-  <div id="correct1" class="container" style="display: none;">
-    <h2>정답입니다</h2>
-    <p>해설내용</p>
-    <img src="images/yellow-stone.png" alt="노란 스톤">
-    <button onclick="location.href='stone-result.html#1A-result'">스톤 확인하기</button>
-  </div>
+  <script>
+    // 다음 단계로 이동
+    function nextStep(stepId) {
+      document.querySelectorAll('.container').forEach(div => (div.style.display = 'none'));
+      document.getElementById(stepId).style.display = 'block';
+    }
 
-  <!-- 다른 구역들도 동일하게 추가 -->
-  <script src="script.js"></script>
+    // 이전 단계로 이동
+    function previousStep(stepId) {
+      nextStep(stepId);
+    }
+
+    // 정답 확인 함수
+    function checkAnswer(inputId, correctAnswer, correctId, wrongId) {
+      const userAnswer = document.getElementById(inputId).value.trim();
+      const correctDiv = document.getElementById(correctId);
+      const wrongDiv = document.getElementById(wrongId);
+
+      if (userAnswer === correctAnswer) {
+        // 정답일 경우
+        wrongDiv.classList.add('hidden');
+        correctDiv.classList.remove('hidden');
+        correctDiv.classList.add('visible');
+      } else {
+        // 오답일 경우
+        wrongDiv.classList.remove('hidden');
+        correctDiv.classList.add('hidden');
+      }
+    }
+  </script>
 </body>
 </html>
