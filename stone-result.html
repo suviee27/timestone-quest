@@ -3,18 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>스톤 획득</title>
+  <title>스톤 결과</title>
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
   <div class="container">
-    <h2>스톤 획득 🎉</h2>
-    <img src="images/yellow-stone.png" alt="노란 스톤">
-    <p>타임스톤의 노란 조각을 획득했습니다!</p>
-    <input type="text" id="team-name" placeholder="팀 이름 입력">
-    <button onclick="submitResult('노란 스톤')">결과 저장</button>
-    <button class="secondary-btn" onclick="location.href='index.html'">홈으로</button>
+
+    <!-- 1A 스톤 결과 -->
+    <div id="1A-result" class="result" style="display: none;">
+      <h2>축하합니다! 🎉</h2>
+      <p>타임스톤의 <strong>노란</strong> 조각을 획득했습니다!</p>
+      <img src="images/yellow-stone.png" alt="노란 스톤">
+      <button onclick="downloadImage('images/yellow-stone.png')">이미지 저장하기</button>
+      <button onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
+    </div>
+
+    <!-- 2B 스톤 결과 -->
+    <div id="2B-result" class="result" style="display: none;">
+      <h2>스톤이 없습니다.🥲</h2>
+      <p>다른 퀘스트를 시도해보세요.</p>
+      <button onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
+    </div>
+
+    <!-- 추가 스톤 결과를 여기에 추가 -->
+    <!-- 예: 3A 스톤 결과 -->
+    <div id="3A-result" class="result" style="display: none;">
+      <h2>축하합니다! 🎉</h2>
+      <p>타임스톤의 <strong>파란</strong> 조각을 획득했습니다!</p>
+      <img src="images/blue-stone.png" alt="파란 스톤">
+      <button onclick="downloadImage('images/blue-stone.png')">이미지 저장하기</button>
+      <button onclick="location.href='clue-list.html'">목록으로 돌아가기</button>
+    </div>
+
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    // URL 파라미터에서 퀴즈 ID 가져오기
+    function getQuizResult() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('quiz'); // `quiz=1A` 형태로 전달받음
+    }
+
+    // 결과 표시
+    function showResult() {
+      const resultId = getQuizResult(); // 퀴즈 ID 가져오기
+      const resultDiv = document.getElementById(`${resultId}-result`);
+
+      if (resultDiv) {
+        resultDiv.style.display = 'block'; // 해당 결과 표시
+      } else {
+        alert('결과를 찾을 수 없습니다.'); // 잘못된 퀴즈 ID 처리
+        location.href = 'clue-list.html';
+      }
+    }
+
+    // 이미지 다운로드 함수
+    function downloadImage(imagePath) {
+      const link = document.createElement('a');
+      link.href = imagePath;
+      link.download = 'stone-image.png';
+      link.click();
+    }
+
+    // 페이지 로드 시 결과 표시
+    document.addEventListener('DOMContentLoaded', showResult);
+  </script>
 </body>
 </html>

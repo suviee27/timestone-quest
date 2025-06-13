@@ -5,16 +5,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>결과 보기</title>
   <link rel="stylesheet" href="main.css">
+  <style>
+    /* 오른쪽 상단 버튼 스타일 */
+    .top-right-buttons {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .top-right-buttons button {
+      padding: 5px 10px;
+      font-size: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .top-right-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    .container {
+      margin-top: 50px; /* 오른쪽 상단 버튼과 간격 확보 */
+    }
+  </style>
 </head>
 <body>
+  <!-- 오른쪽 상단 버튼 -->
+  <div class="top-right-buttons">
+    <button onclick="deleteSelectedResults()">선택 삭제</button>
+    <button onclick="clearResults()">초기화</button>
+  </div>
+
+  <!-- 결과 보기 -->
   <div class="container">
     <h1>결과 보기</h1>
     <ul id="results-list"></ul>
-    <input type="password" id="admin-password" placeholder="비밀번호 입력">
-    <button onclick="deleteSelectedResults()">선택 삭제</button>
-    <button onclick="clearResults()">초기화</button>
     <button class="secondary-btn" onclick="location.href='index.html'">홈으로</button>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    // 결과 목록 로드
+    function loadResults() {
+      const results = JSON.parse(localStorage.getItem('results')) || [];
+      const resultsList = document.getElementById('results-list');
+
+      if (results.length === 0) {
+        resultsList.innerHTML = '<li>저장된 결과가 없습니다.</li>';
+        return;
+      }
+
+      results.forEach((result, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${result.team} - ${result.stone} (저장 시각: ${result.time})`;
+        li.setAttribute('data-index', index); // 각 결과에 인덱스를 추가
+        li.style.cursor = 'pointer';
+        li.onclick = () => toggleSelection(li); // 클릭 시 선택/해제
+        resultsList.appendChild(li);
+      });
+    }
+
+    // 선택된 결과의 스타일 변경 (선택 시 강조 표시)
+    function toggleSelection(item) {
+      if (item.style.backgroundColor === 'lightgray') {
+        item.style.backgroundColor = ''; // 선택 해제
+      } else {
+        item.style.backgroundColor = 'lightgray'; // 선택
+      }
+    }
+
+    // 선택 삭제 (prompt로 비밀번호 확인)
+    function deleteSelectedResults() {
+      const password = prompt('비밀번호를 입력하세요:'); // 새 창에서 비밀번호 입력
+      if (password !== 'admin123') {
+        alert('비밀번호가 틀렸습니다.');
+        return;
+      }
+
+      const results = JSON.parse(localStorage.getItem('results')) || [];
+      const selectedItems = document.querySelectorAll('#results-list li[style*="lightgray"]');
+
+      if (selectedItems.length === 0) {
+        alert('삭제할 결과를 선택하세요.');
+        return;
+      }
+
+      selectedItems.forEach(item => {
+        const index = parseInt(item.getAttribute('data-index'), 10); // 인덱스를 가져와서
+        results.splice(index, 1); // 해당 결과 삭제
+      });
+
+      // 변경된 결과를 다시 저장
+      localStorage.setItem('results', JSON.stringify(results));
+      alert('선택된 결과가 삭제되었습니다.');
+      location.reload(); // 페이지 새로고침
+    }
+
+    // 결과 초기화 (prompt로 비밀번호 확인)
+    function clearResults() {
+      const password = prompt('비밀번호를 입력하세요:'); // 새 창에서 비밀번호 입력
+      if (password !== 'admin123') {
+        alert('비밀번호가 틀렸습니다.');
+        return;
+      }
+
+      if (confirm('모든 결과를 삭제하시겠습니까?')) {
+        localStorage.removeItem('results');
+        alert('결과가 초기화되었습니다.');
+        location.reload();
+      }
+    }
+
+    // 페이지 로드 시 결과 목록 표시
+    document.addEventListener('DOMContentLoaded', loadResults);
+  </script>
 </body>
 </html>

@@ -58,37 +58,30 @@ function loadResults() {
   });
 }
 
-// 결과 초기화
+// 결과 초기화 (비밀번호 확인)
 function clearResults() {
-  if (confirm('모든 결과를 삭제하시겠습니까?')) {
-    localStorage.removeItem('results');
-    alert('결과가 초기화되었습니다.');
-    location.reload();
+  const password = prompt('비밀번호를 입력하세요:');
+  if (password === 'admin123') {
+    if (confirm('모든 결과를 삭제하시겠습니까?')) {
+      localStorage.removeItem('results');
+      alert('결과가 초기화되었습니다.');
+      location.reload();
+    }
+  } else {
+    alert('비밀번호가 틀렸습니다.');
   }
 }
 
-// 결과 제출 및 저장
-function submitResult(stone) {
-  const teamName = document.getElementById('team-name').value.trim();
-  if (!teamName) {
-    alert('팀 이름을 입력하세요!');
-    return;
+// 선택된 결과 삭제 (비밀번호 확인)
+function deleteSelectedResults() {
+  const password = prompt('비밀번호를 입력하세요:');
+  if (password === 'admin123') {
+    alert('선택된 결과가 삭제되었습니다. (기능 구현 필요)');
+    // 선택된 결과 삭제 로직은 추가 구현이 필요합니다.
+  } else {
+    alert('비밀번호가 틀렸습니다.');
   }
-
-  const results = JSON.parse(localStorage.getItem('results')) || [];
-  results.push({ team: teamName, stone, time: new Date().toLocaleString() });
-  localStorage.setItem('results', JSON.stringify(results));
-  alert('결과가 저장되었습니다!');
-  location.href = 'results.html'; // 결과 페이지로 이동
 }
 
-// 페이지 로드 시 특정 작업 수행
-document.addEventListener('DOMContentLoaded', () => {
-  const currentPage = document.body.getAttribute('data-page');
-
-  if (currentPage === 'results') {
-    loadResults(); // 결과 목록 페이지에서 결과 로드
-  } else if (currentPage === 'stone-result') {
-    showResult(); // 스톤 결과 페이지에서 결과 표시
-  }
-});
+// 페이지 로드 시 결과 목록 표시
+document.addEventListener('DOMContentLoaded', loadResults);
